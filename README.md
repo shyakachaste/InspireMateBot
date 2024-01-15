@@ -16,7 +16,6 @@ Meet InspireMateBot, your virtual companion for moments of inspiration and encou
 
 ## Commands:
 - `$inspire`: Receive an inspirational message.
-- `$quote`: Get a motivational quote to boost your spirits.
 - `$new`: Add a new motivational word or phrase to the bot's repertoire.
 - `$del`: Delete a previously added motivational word or phrase.
 - `$list`: View the list of currently added motivational words and phrases.
