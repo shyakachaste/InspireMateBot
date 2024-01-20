@@ -2,9 +2,6 @@
 
 Meet InspireMateBot, your virtual companion for moments of inspiration and encouragement on Discord! InspireMateBot is here to share uplifting messages, motivational quotes, and kind words to brighten your day. Spread positivity in your server, foster a supportive community, and let InspireMateBot be the source of inspiration for you and your friends.
 
-![Blue White Robot Technology Logo](https://github.com/shyakachaste/InspireMateBot/assets/121980393/25dec735-4e06-4d17-8d57-d63bda07199c)
-
-
 
 ## Features:
 - 🌟 Sends inspirational messages at regular intervals.
