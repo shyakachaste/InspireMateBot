@@ -5,11 +5,9 @@ Meet InspireMateBot, your virtual companion for moments of inspiration and encou
 
 ## Features:
 - 🌟 Sends inspirational messages at regular intervals.
-- 📚 Provides motivational quotes to motivate and uplift.
+- 📚 Provides motivational words to motivate and uplift.
 - 💬 Customize the bot's behavior and frequency of messages to suit your server's vibe.
 
-## Invite InspireMateBot to your server:
-[Invite InspireMateBot](https://discord.com/api/oauth2/authorize?client_id=1196070739502178355&permissions=137439439936&scope=bot)
 
 ## Commands:
 - `$inspire`: Receive an inspirational message.
