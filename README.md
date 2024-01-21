@@ -16,8 +16,3 @@ Meet InspireMateBot, your virtual companion for moments of inspiration and encou
 - `$list`: View the list of currently added motivational words and phrases.
 - `$responding`: Toggle whether the bot responds to commands. Use `true` to respond and `false` to disable responses.
 
-## Setup:
-1. Invite the bot to your server using the provided invite link.
-2. Create a channel for inspirational messages (optional but recommended).
-3. Start spreading positivity and inspiration in your Discord community!
-
