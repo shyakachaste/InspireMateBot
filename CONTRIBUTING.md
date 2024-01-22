@@ -13,3 +13,4 @@ We welcome contributions from everyone! Please follow the guidelines below to co
    ```bash
    git clone https://github.com/shyakachaste/InspireMateBot.git
    cd InspireMatebot
+   ```
