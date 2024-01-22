@@ -1,6 +1,6 @@
 # Contributing to InspireMateBot
 
-Thank you for considering contributing to InspireMateBot! By participating in this project, you agree to abide by our [Code of Conduct](CODE_OF_CONDUCT.md).
+Thank you for considering contributing to InspireMateBot! By participating in this project, you agree to abide by our [Code of Conduct](baddir).
 
 ## How to Contribute
 
