@@ -11,7 +11,7 @@ Meet InspireMateBot, your virtual companion for moments of inspiration and encou
 
 ## Commands:
 - `$inspire`: Receive an inspirational message.
-- `$new`: Add a new motivational word or phrase to the bot's repertoire.
+- `$new`: Add a new motivational word to the bot's repertoire.
 - `$del`: Delete a previously added motivational word or phrase.
 - `$list`: View the list of currently added motivational words and phrases.
 - `$responding`: Toggle whether the bot responds to commands. Use `true` to respond and `false` to disable responses.
