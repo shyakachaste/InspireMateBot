@@ -9,9 +9,6 @@ Inspire Mate Bot is a Discord bot designed to bring inspiration, motivation, and
    - [Installation](#installation)
    - [Usage](#usage)
 4. [Commands](#commands)
-5. [Enhancements for Slack (Hack Club)](#enhancements-for-slack-hack-club)
-6. [Issues and Suggestions](#issues-and-suggestions)
-7. [Notes](#notes)
 
 ## 1. Introduction <a name="introduction"></a>
 
@@ -62,26 +59,3 @@ Inspire Mate Bot is a Discord bot that aims to create a positive and motivating 
    - *Description*: Display a help message with a list of available commands.
    - *Usage*: `$help`
 
-## 5. Enhancements for Slack (Hack Club) <a name="enhancements-for-slack-hack-club"></a>
-
-To adapt Inspire Mate Bot for use within the Slack workspace of Hack Club, consider the following enhancements:
-
-- **Slack Integration:** Modify the bot to work with the Slack API and events system.
-- **Hack Club-Specific Commands:** Introduce commands tailored for the Hack Club community.
-- **Interactive Messages:** Implement interactive message buttons for user-friendly interactions.
-- **Multi-Workspace Support:** Extend support for multiple Slack workspaces, particularly for various Hack Club chapters.
-
-## 6. Issues and Suggestions <a name="issues-and-suggestions"></a>
-
-### Known Issues:
-
-- **User Specificity:** The bot currently responds to messages globally. Consider adding user-specific filters for a more personalized experience.
-
-### Suggestions:
-
-- **Customization:** Allow server administrators to customize bot responses and messages to better suit the tone and culture of their Discord server.
-
-## 7. Notes <a name="notes"></a>
-
-- Customize the bot's responses and messages to better suit the tone and culture of your Discord server.
-- Report any issues or suggest enhancements to the bot to improve its functionality.
