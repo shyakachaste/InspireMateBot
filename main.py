@@ -1,14 +1,14 @@
 import discord
 import os
-import requests
+import aiohttp
 import json
 import random
 from replit import db
 from keep_alive import keep_alive
+from discord.ext import commands
 
 intents = discord.Intents.default()
-
-client = discord.Client(intents=intents)
+bot = commands.Bot(command_prefix="$", intents=intents)
 
 sad_words = [
     "sad", "depressed", "unhappy", "angry", "miserable", "depressing",
@@ -36,77 +36,100 @@ programming_motivation = [
 ]
 
 if "encouragements" not in db.keys():
-  db["encouragements"] = starter_encouragements
+    db["encouragements"] = starter_encouragements
 
 
-def get_quote():
-  response = requests.get("https://zenquotes.io/api/random")
-  json_data = json.loads(response.text)
-  quote = json_data[0]['q'] + " -" + json_data[0]['a']
-  return quote
+async def get_quote():
+    async with aiohttp.ClientSession() as session:
+        async with session.get("https://zenquotes.io/api/random") as response:
+            if response.status == 200:
+                json_data = await response.json()
+                quote = json_data[0]['q'] + " -" + json_data[0]['a']
+                return quote
+            else:
+                return "Could not retrieve a quote at the moment, please try again later."
 
 
 def update_encouragements(encouraging_message):
-  encouragements = db["encouragements"]
-  encouragements.append(encouraging_message)
-  db["encouragements"] = encouragements
-
-
-def delete_encouragement(index):
-  encouragements = db["encouragements"]
-  if len(encouragements) > index:
-    del encouragements[index]
+    encouragements = db["encouragements"]
+    encouragements.append(encouraging_message)
     db["encouragements"] = encouragements
 
 
-@client.event
+def delete_encouragement(index):
+    encouragements = db["encouragements"]
+    if len(encouragements) > index:
+        del encouragements[index]
+        db["encouragements"] = encouragements
+
+
+@bot.event
 async def on_ready():
-  print('We have logged in as {0.user}'.format(client))
+    print(f'We have logged in as {bot.user}')
 
 
-@client.event
-async def on_message(message):
-  if message.author == client.user:
-    return
+@bot.command(name='inspire')
+async def inspire(ctx):
+    quote = await get_quote()
+    await ctx.send(quote)
 
-  msg = message.content.lower()
 
-  if msg.startswith('$inspire'):
-    quote = get_quote()
-    await message.channel.send(quote)
-
-  if msg.startswith("$new"):
-    encouraging_message = msg.split("$new ", 1)[1]
+@bot.command(name='new')
+async def new(ctx, *, encouraging_message: str):
     update_encouragements(encouraging_message)
-    await message.channel.send("New encouraging message added. 🌟")
+    await ctx.send("New encouraging message added. 🌟")
 
-  if msg.startswith("$del"):
+
+@bot.command(name='del')
+async def delete(ctx, index: int):
     encouragements = db["encouragements"]
-    index = int(msg.split("$del", 1)[1])
-    delete_encouragement(index)
-    await message.channel.send(encouragements)
+    if 0 <= index < len(encouragements):
+        delete_encouragement(index)
+        await ctx.send(f"Deleted message at index {index}.")
+    else:
+        await ctx.send("Index out of range.")
 
-  if msg.startswith("$list"):
+
+@bot.command(name='list')
+async def list_encouragements(ctx):
     encouragements = db["encouragements"]
-    await message.channel.send(encouragements)
+    await ctx.send('\n'.join(f'{i}: {msg}'
+                             for i, msg in enumerate(encouragements)))
 
-  if msg.startswith("$motivate"):
-    await message.channel.send(random.choice(programming_motivation))
 
-  if msg.startswith("$help"):
+@bot.command(name='motivate')
+async def motivate(ctx):
+    await ctx.send(random.choice(programming_motivation))
+
+
+@bot.command(name='commands')
+async def custom_help(ctx):
     help_message = """Commands:
-        $inspire - Get an inspirational quote
-        $new [message] - Add a new encouraging message
-        $del [index] - Delete an encouraging message at the specified index
-        $list - List all encouraging messages
-        $motivate - Get motivation for programming
-        $help - Display this help message"""
-    await message.channel.send(help_message)
+    $inspire - Get an inspirational quote
+    $new [message] - Add a new encouraging message
+    $del [index] - Delete an encouraging message at the specified index
+    $list - List all encouraging messages
+    $motivate - Get motivation for programming
+    $commands - Display this help message"""
+    await ctx.send(help_message)
 
-  if "awesome" in msg:
-    await message.add_reaction('🚀')
-    await message.channel.send("You're awesome! 🎉")
+
+@bot.event
+async def on_message(message):
+    if message.author == bot.user:
+        return
+
+    msg = message.content.lower()
+
+    if any(word in msg for word in sad_words):
+        await message.channel.send(random.choice(db["encouragements"]))
+
+    await bot.process_commands(message)
+
+    if "awesome" in msg:
+        await message.add_reaction('🚀')
+        await message.channel.send("You're awesome! 🎉")
 
 
 keep_alive()
-client.run(os.getenv('TOKEN'))
+bot.run(os.getenv('TOKEN'))
