@@ -35,19 +35,63 @@ programming_motivation = [
     "Your code might have errors, but your potential is limitless. Keep pushing boundaries! 🌐"
 ]
 
+programming_tips = [
+    "Read the documentation, it's your best friend! 📚",
+    "Write code every day, even if it's just a little. ✏️",
+    "Don't be afraid to ask for help. The community is here for you! 👥",
+    "Practice by working on real projects. 🛠️",
+    "Learn to debug. It's a valuable skill! 🔍",
+    "Keep your code clean and well-commented. 🧹",
+    "Version control is important. Learn Git. 🗂️",
+    "Break problems into smaller, manageable tasks. 🧩",
+    "Keep learning new languages and frameworks. 🌐",
+    "Stay updated with the latest trends in technology. 📈"
+]
+
 if "encouragements" not in db.keys():
     db["encouragements"] = starter_encouragements
 
 
 async def get_quote():
     async with aiohttp.ClientSession() as session:
-        async with session.get("https://zenquotes.io/api/random") as response:
-            if response.status == 200:
-                json_data = await response.json()
-                quote = json_data[0]['q'] + " -" + json_data[0]['a']
-                return quote
-            else:
-                return "Could not retrieve a quote at the moment, please try again later."
+        sources = [
+            "https://zenquotes.io/api/random", "https://api.quotable.io/random"
+        ]
+        source = random.choice(sources)
+        try:
+            async with session.get(source) as response:
+                if response.status == 200:
+                    json_data = await response.json()
+                    if "zenquotes" in source:
+                        quote = json_data[0]['q'] + " -" + json_data[0]['a']
+                    else:
+                        quote = json_data['content'] + " -" + json_data[
+                            'author']
+                    return quote
+                else:
+                    print(f"Error fetching quote: {response.status}")
+                    return "Could not retrieve a quote at the moment, please try again later."
+        except Exception as e:
+            print(f"Exception in get_quote: {e}")
+            return "Could not retrieve a quote due to an error."
+
+
+async def get_joke():
+    async with aiohttp.ClientSession() as session:
+        try:
+            async with session.get(
+                    "https://official-joke-api.appspot.com/random_joke"
+            ) as response:
+                if response.status == 200:
+                    json_data = await response.json()
+                    joke = json_data['setup'] + " ... " + json_data['punchline']
+                    return joke
+                else:
+                    print(f"Error fetching joke: {response.status}")
+                    return "Could not retrieve a joke at the moment, please try again later."
+        except Exception as e:
+            print(f"Exception in get_joke: {e}")
+            return "Could not retrieve a joke due to an error."
 
 
 def update_encouragements(encouraging_message):
@@ -70,8 +114,22 @@ async def on_ready():
 
 @bot.command(name='inspire')
 async def inspire(ctx):
-    quote = await get_quote()
-    await ctx.send(quote)
+    try:
+        quote = await get_quote()
+        await ctx.send(quote)
+    except Exception as e:
+        print(f"Exception in inspire command: {e}")
+        await ctx.send("Could not send the quote due to an error.")
+
+
+@bot.command(name='joke')
+async def joke(ctx):
+    try:
+        joke = await get_joke()
+        await ctx.send(joke)
+    except Exception as e:
+        print(f"Exception in joke command: {e}")
+        await ctx.send("Could not send the joke due to an error.")
 
 
 @bot.command(name='new')
@@ -102,14 +160,21 @@ async def motivate(ctx):
     await ctx.send(random.choice(programming_motivation))
 
 
+@bot.command(name='tip')
+async def tip(ctx):
+    await ctx.send(random.choice(programming_tips))
+
+
 @bot.command(name='commands')
 async def custom_help(ctx):
     help_message = """Commands:
     $inspire - Get an inspirational quote
+    $joke - Get a random joke
     $new [message] - Add a new encouraging message
     $del [index] - Delete an encouraging message at the specified index
     $list - List all encouraging messages
     $motivate - Get motivation for programming
+    $tip - Get a random programming tip
     $commands - Display this help message"""
     await ctx.send(help_message)
 
@@ -120,15 +185,19 @@ async def on_message(message):
         return
 
     msg = message.content.lower()
+    responded = False
 
     if any(word in msg for word in sad_words):
         await message.channel.send(random.choice(db["encouragements"]))
-
-    await bot.process_commands(message)
+        responded = True
 
     if "awesome" in msg:
         await message.add_reaction('🚀')
         await message.channel.send("You're awesome! 🎉")
+        responded = True
+
+    if not responded:
+        await bot.process_commands(message)
 
 
 keep_alive()
