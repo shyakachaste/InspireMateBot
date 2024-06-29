@@ -8,7 +8,7 @@ Inspire Mate Bot is a Discord bot that aims to create a positive and motivating 
 
 ## 2. Getting Started <a name="getting-started"></a>
 
-i. **Invite the Bot:**
+ **Invite the Bot:**
    - Get the bot token by setting up a Discord App.
    - Invite the bot to your Discord server using the provided bot token.
 
