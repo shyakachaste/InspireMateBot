@@ -2,30 +2,13 @@
 
 Inspire Mate Bot is a Discord bot designed to bring inspiration, motivation, and positive vibes to your Discord server.
 
-## Table of Contents
-1. [Introduction](#introduction)
-2. [Features](#features)
-3. [Getting Started](#getting-started)
-   - [Installation](#installation)
-   - [Usage](#usage)
-4. [Commands](#commands)
-
 ## 1. Introduction <a name="introduction"></a>
 
 Inspire Mate Bot is a Discord bot that aims to create a positive and motivating environment within your Discord server. It responds to messages with inspirational quotes, programming motivation, and encouraging messages.
 
-## 2. Features <a name="features"></a>
+## 2. Getting Started <a name="getting-started"></a>
 
-- **Inspirational Quotes:** Get random inspirational quotes to boost your spirits.
-- **Encouragement:** Responds to messages containing sad words with uplifting messages.
-- **Programming Motivation:** Provides motivation specifically tailored for programmers.
-- **Custom Messages:** Users can add, delete, and list custom encouraging messages.
-
-## 3. Getting Started <a name="getting-started"></a>
-
-### Installation <a name="installation"></a>
-
-1. **Invite the Bot:**
+i. **Invite the Bot:**
    - Get the bot token by setting up a Discord App.
    - Invite the bot to your Discord server using the provided bot token.
 
@@ -33,7 +16,7 @@ Inspire Mate Bot is a Discord bot that aims to create a positive and motivating 
 
 - Type commands in any channel where the bot has been invited to receive inspirational messages and use its features.
 
-## 4. Commands <a name="commands"></a>
+## 3. Commands <a name="commands"></a>
 
 1. **$inspire**
    - *Description*: Get a random inspirational quote.
@@ -55,7 +38,14 @@ Inspire Mate Bot is a Discord bot that aims to create a positive and motivating 
    - *Description*: Get motivation specifically tailored for programming.
    - *Usage*: `$motivate`
 
-6. **$help**
+6. **$commands**
    - *Description*: Display a help message with a list of available commands.
    - *Usage*: `$help`
 
+7.**$joke**
+   - *Description*: Get a random joke.
+   - *Usage*: `$joke`
+
+8.**$tip**
+   - *Description*: Get a random programming tip.
+   - *Usage*: `$tip`
