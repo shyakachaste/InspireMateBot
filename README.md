@@ -49,3 +49,7 @@ Inspire Mate Bot is a Discord bot that aims to create a positive and motivating 
 8.**$tip**
    - *Description*: Get a random programming tip.
    - *Usage*: `$tip`
+
+8.**$fortune**
+   - *Description*: Give users a random fortune cookie message.
+   - *Usage*: `$fortune`
